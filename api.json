@@ -1,0 +1,15 @@
+{
+  "posts": [],
+  "users": [
+    {
+      "id": 1,
+      "name": "Henrique Derosa",
+      "email": "henrique@derosa.com"
+    },
+    {
+      "name": null,
+      "email": null,
+      "id": 2
+    }
+  ]
+}
