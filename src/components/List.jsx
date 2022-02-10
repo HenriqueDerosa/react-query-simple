@@ -1,14 +1,15 @@
-import axios from "axios";
-import { useEffect } from "react";
+import React, { useMemo, useCallback } from "react";
 import { useQuery } from "react-query";
 import { getUserList } from "../services/api";
 
-const List = ({ children }) => {
+const List = () => {
   const { data: list, isLoading, error } = useQuery("userList", getUserList);
 
-  useEffect(() => {
-    console.log(list);
-  }, [list]);
+  const renderItem = useCallback(
+    (item) => <p key={item.id}>{item.name}</p>,
+    []
+  );
+  const renderList = useMemo(() => list?.data?.map(renderItem), [list]);
 
   if (isLoading) {
     return <p>Aguarde</p>;
@@ -18,13 +19,7 @@ const List = ({ children }) => {
     return <p>Erro: {error}</p>;
   }
 
-  return (
-    <div>
-      {list.data.map((item) => {
-        return <p key={item.id}>{item.name}</p>;
-      })}
-    </div>
-  );
+  return renderList;
 };
 
-export default List;
+export default React.memo(List);
